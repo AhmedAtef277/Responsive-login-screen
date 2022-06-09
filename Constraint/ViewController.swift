@@ -22,17 +22,36 @@ class ViewController: UIViewController {
         rememberMe.setImage(UIImage(named: "checkbox")!, for: .selected)
         passwordField.isSecureTextEntry = true
         logIn.layer.cornerRadius = 12
-
-        
-        
-        
-
-
     }
     
-   
+    @IBAction func loginButtonPressed(_ sender: Any) {
+        if validation(){
+            createAlert("Success", "Loged success")
+        }else{
+            createAlert("Error", "Email or password is empty")
+        }
+        
+    }
+    
     @IBAction func checkBox(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+    }
+    
+    func validation() -> Bool{
+        if emailField.text == "" || passwordField.text == ""{
+            return false
+        }
+        return true
+    }
+    
+    func createAlert(_ alertTitle : String , _ alertMessage : String) {
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "Ok", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okButton)
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }
